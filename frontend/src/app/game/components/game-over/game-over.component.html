@@ -1,0 +1,12 @@
+<mat-toolbar>
+  <span>Rock, Paper or Scissors Game</span>
+</mat-toolbar>
+
+<div class="container">
+  <h1 class="mat-h1 mt">Congratulations, {{gameOver.winner}}!</h1>
+  <h2 class="mat-h2">You have proven to be the best with a {{roundsByPlayer.playerOne}} - {{roundsByPlayer.playerTwo}}!</h2>
+  <app-rounds-score highlightLast></app-rounds-score>
+  <div class="mt">
+    <button mat-button type="button" (click)="playAgain()">Play Again</button>
+  </div>
+</div>

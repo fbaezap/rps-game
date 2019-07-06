@@ -1,0 +1,46 @@
+<mat-toolbar>
+  <span>Rock, Paper or Scissors Game</span>
+  <span class="spacer"></span>
+  <button mat-icon-button class="show-scores-button" (click)="showScores()" *ngIf="rounds.length">
+    <mat-icon>assignment</mat-icon>
+  </button>
+  <app-quit-game></app-quit-game>
+</mat-toolbar>
+<div class="container">
+  <h1 class="mat-h1 mt">Round {{rounds.length + 1}}</h1>
+  <p class="mat-body">Now, choose your moves.</p>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <mat-horizontal-stepper linear #stepper>
+      <mat-step [stepControl]="formGroup.get('playerOneMove')" [editable]="false">
+        <ng-template matStepLabel>{{players.playerOne}}</ng-template>
+        <p class="mat-body">Choose your move, {{players.playerOne}}.</p>
+        <mat-form-field>
+          <mat-label>Your Move</mat-label>
+          <mat-select formControlName="playerOneMove" required>
+            <mat-option *ngFor="let move of moves; let i=index" [value]="i">
+              {{move}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button type="button" matStepperNext>Ready</button>
+        </div>
+      </mat-step>
+      <mat-step [stepControl]="formGroup.get('playerTwoMove')" [editable]="false">
+        <ng-template matStepLabel>{{players.playerTwo}}</ng-template>
+        <p class="mat-body">Choose your move, {{players.playerTwo}}.</p>
+        <mat-form-field>
+          <mat-label>Your Move</mat-label>
+          <mat-select formControlName="playerTwoMove" required>
+            <mat-option *ngFor="let move of moves; let i=index" [value]="i">
+              {{move}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button>Ready</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+</div>

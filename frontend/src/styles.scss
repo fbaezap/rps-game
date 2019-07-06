@@ -1,0 +1,30 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+.container {
+  min-width: 16rem;
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (max-width: 432px) {
+  .container {
+    margin-right: 16px;
+    margin-left: 16px;
+  }
+}
+
+.mt {
+  margin-top: 16px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}

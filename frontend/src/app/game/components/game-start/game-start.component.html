@@ -1,0 +1,34 @@
+<mat-toolbar>
+  <span>Rock, Paper or Scissors Game</span>
+</mat-toolbar>
+
+<div class="container">
+  <h1 class="mat-h1 mt">Start Game</h1>
+  <p class="mat-body">First, write your names.</p>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Player One</mat-label>
+        <input matInput placeholder="Name of Player One" formControlName="playerOne" required>
+        <mat-error>Your name is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Player Two</mat-label>
+        <input matInput placeholder="Name of Player Two" formControlName="playerTwo" required>
+        <mat-error *ngIf="this.formGroup.get('playerTwo').errors as errors">
+          <ng-container *ngIf="errors.required">
+            Your name is required
+          </ng-container>
+          <ng-container *ngIf="errors.different">
+            You have to choose a different name
+          </ng-container>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="mt">
+      <button mat-button>Start Game</button>
+    </div>
+  </form>
+</div>

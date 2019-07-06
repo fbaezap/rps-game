@@ -1,0 +1,25 @@
+mat-table {
+  width: 100%;
+  .mat-column-round {
+    flex-basis: 60px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-right: 8px;
+  }
+  mat-cell {
+    &.mat-column-round {
+      & > span {
+        margin-left: auto;
+        color: rgba(0,0,0,.54);
+        font-size: 12px;
+        font-weight: 500;
+      }
+    }
+  }
+  mat-cell, mat-header-cell {
+    &.mat-column-playerOne, &.mat-column-playerTwo {
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

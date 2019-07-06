@@ -6,8 +6,9 @@
 
 <div class="container">
   <ng-container *ngIf="lastRound?.winner; else elseTemplate">
-    <h1 class="mat-h1 mt">Go Job, {{lastRound.winner}}!</h1>
-    <h2 class="mat-h2">You won the round.</h2>
+    <h1 class="mat-h1 mt">Round Over</h1>
+    <h2 class="mat-h2">Go Job, {{lastRound.winner}}!</h2>
+    <p class="mat-body">You won the round.</p>
   </ng-container>
   <ng-template #elseTemplate>
     <h1 class="mat-h1">It was a tie!</h1>

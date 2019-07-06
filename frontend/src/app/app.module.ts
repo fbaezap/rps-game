@@ -7,6 +7,7 @@ import { GameModule } from './game/game.module';
 import { RoundModule } from './round/round.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     GameModule,
     RoundModule,
     BrowserAnimationsModule,

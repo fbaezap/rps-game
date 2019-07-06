@@ -3,9 +3,10 @@ import { ExpressSessionMiddleware } from '@nest-middlewares/express-session';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CsurfMiddleware } from './core/csurf/csurf.middleware';
+import { GameModule } from './game/game.module';
 
 @Module({
-  imports: [],
+  imports: [GameModule],
   controllers: [AppController],
   providers: [AppService],
 })

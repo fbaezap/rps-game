@@ -4,6 +4,7 @@ import { Game } from '../models/game.model';
 import { isNullOrUndefined } from 'util';
 import { Move } from '../models/move.model';
 import { Round } from '../../round/models/round.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

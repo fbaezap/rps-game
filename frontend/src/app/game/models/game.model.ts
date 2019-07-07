@@ -6,15 +6,16 @@ import { GameConfig } from './game-config.model';
 import { isNullOrUndefined } from 'util';
 import { GameOver } from './game-over.model';
 import { GameDto } from '../dtos/game.dto';
+import { MoveConfig } from './move-config.model';
 
 export class Game {
   readonly players: Players;
-  readonly moves: ReadonlyArray<Move>;
+  readonly moveConfig: MoveConfig;
   private rounds: RoundResolved[] = [];
   private gameOver: GameOver;
   constructor(gameDto: GameDto) {
     this.players = gameDto.players;
-    this.moves = gameDto.moves;
+    this.moveConfig = gameDto.moveConfig;
     this.updateGame(gameDto);
   }
 

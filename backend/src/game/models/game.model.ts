@@ -1,12 +1,12 @@
-import { Players } from './player.model';
-import { Move } from './move.model';
 import { GameConfig } from './game-config.model';
-import { RoundResolved } from './round.model';
 import { GameOver } from './game-over.model';
+import { MoveConfig } from './move-config.model';
+import { Players } from './player.model';
+import { RoundResolved } from './round.model';
 
 export interface SessionGame {
   readonly players: Players;
-  readonly moves: Move[];
+  readonly moveConfig: MoveConfig;
   readonly gameConfig: GameConfig;
   readonly rounds: RoundResolved[];
   gameOver: GameOver;

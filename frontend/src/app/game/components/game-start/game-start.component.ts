@@ -5,6 +5,7 @@ import { GameService } from '../../services/game.service';
 import { Players } from '../../models/player.model';
 import { Router } from '@angular/router';
 import { Move } from '../../models/move.model';
+import { MoveConfig } from '../../models/move-config.model';
 
 @Component({
   selector: 'app-game-start',
@@ -14,22 +15,34 @@ import { Move } from '../../models/move.model';
 export class GameStartComponent implements OnInit {
   formGroup: FormGroup;
   submitting: boolean;
-  movesOptions = [{
-    value: ['Scissors', 'Paper', 'Rocks'],
+  movesConfig: { viewValue: string; value: MoveConfig & { explain: string }; }[] = [{
+    value: {
+      moves: ['Scissors', 'Paper', 'Rocks'],
+      inverted: false,
+      explain: 'You play with Scissors > Paper > Rock > Scissors'
+    },
     viewValue: 'Three Options',
-    explain: 'You play with Scissors > Paper > Rock > Scissors',
   }, {
-    value: ['Scissors', 'String', 'Dog', 'Paper', 'Rocks'],
+    value: {
+      moves: ['Scissors', 'String', 'Dog', 'Paper', 'Rocks'],
+      inverted: false,
+      explain: 'You play with Scissors > String > Dog > Paper > Rock > Scissors',
+    },
     viewValue: 'Five Options',
-    explain: 'You play with Scissors > String > Dog > Paper > Rock > Scissors',
   }, {
-    value: ['Scissors', 'Paper', 'Rock'].reverse(),
+    value: {
+      moves: ['Scissors', 'Paper', 'Rock'],
+      inverted: true,
+      explain: 'You play with Rock > Paper > Scissors > Rock',
+    },
     viewValue: 'Three Options Inverted',
-    explain: 'You play with Rock > Paper > Scissors',
   }, {
-    value: ['Scissors', 'String', 'Dog', 'Paper', 'Rocks'].reverse(),
+    value: {
+      moves: ['Scissors', 'String', 'Dog', 'Paper', 'Rocks'],
+      inverted: true,
+      explain: 'You play with Rock > Paper > Dog > String > Scissors > Rock',
+    },
     viewValue: 'Five Options Inverted',
-    explain: 'You play with Rock > Paper > Dog > String > Scissors > Rock',
   }];
 
   constructor(
@@ -40,17 +53,17 @@ export class GameStartComponent implements OnInit {
     this.formGroup = this.fb.group({
       playerOne: null,
       playerTwo: null,
-      moves: [
-        this.movesOptions[0]
+      moveConfig: [
+        this.movesConfig[0].value
       ],
     }, {
-      validators: [DifferentValidator.validate(['playerOne', 'playerTwo'])]
-    });
+        validators: [DifferentValidator.validate(['playerOne', 'playerTwo'])]
+      });
 
     this.formGroup.valueChanges.subscribe(() => {
       if (this.formGroup.hasError('different')) {
         const error = this.formGroup.getError('different');
-        this.formGroup.get('playerTwo').setErrors({different: error});
+        this.formGroup.get('playerTwo').setErrors({ different: error });
       }
     }, (error: any) => console.error(error));
   }
@@ -64,12 +77,12 @@ export class GameStartComponent implements OnInit {
     }
     try {
       this.submitting = true;
-      const {playerOne, playerTwo, moves} = this.formGroup.value;
+      const { playerOne, playerTwo, moveConfig } = this.formGroup.value;
       await this.gameService.startGame(
-        {playerOne, playerTwo} as Players,
-        moves.value as Move[],
+        { playerOne, playerTwo } as Players,
+        moveConfig as MoveConfig,
       );
-      await this.router.navigate(['/round'], {replaceUrl: true});
+      await this.router.navigate(['/round'], { replaceUrl: true });
     } catch (error) {
       console.error(error);
     } finally {

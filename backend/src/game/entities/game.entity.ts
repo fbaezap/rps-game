@@ -4,6 +4,7 @@ import { Move } from '../models/move.model';
 import { GameConfig } from '../models/game-config.model';
 import { RoundResolved } from '../models/round.model';
 import { GameOver } from '../models/game-over.model';
+import { MoveConfig } from '../models/move-config.model';
 
 @Entity()
 export class Game {
@@ -17,7 +18,7 @@ export class Game {
   players: Players;
 
   @Column('simple-json')
-  moves: Move[];
+  moveConfig: MoveConfig;
 
   @Column('simple-json')
   gameConfig: GameConfig;

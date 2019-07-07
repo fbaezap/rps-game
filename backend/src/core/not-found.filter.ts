@@ -20,14 +20,18 @@ export class NotFoundFilter extends BaseExceptionFilter {
       // API 404, serve default nest 404:
       super.catch(exception, host);
     } else if (process.env.NODE_ENV === 'production') {
-      const file = readFileSync(join(process.env.PATH_FRONTEND, 'index.html'), {
-        encoding: 'utf8',
-      });
-      const rendered = handlebars.compile(file)({
-        csrfToken: req.csrfToken(),
-        gameDto: JSON.stringify(req.session.game || null),
-      });
-      response.status(200).send(rendered);
+      try {
+        const file = readFileSync(join(process.env.PATH_FRONTEND, 'index.html'), {
+          encoding: 'utf8',
+        });
+        const rendered = handlebars.compile(file)({
+          csrfToken: req.csrfToken(),
+          gameDto: JSON.stringify(req.session.game || null),
+        });
+        response.status(200).send(rendered);
+      } catch (eror) {
+        super.catch(exception, host);
+      }
     } else {
       if (path.includes('.') || path.startsWith('/sockjs-node/')) {
         this.proxy.web(req, response, null, (error) => {

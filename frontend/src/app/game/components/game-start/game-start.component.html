@@ -30,15 +30,15 @@
     <div>
       <mat-form-field>
         <mat-label>Number of Moves</mat-label>
-        <mat-select formControlName="moves" name="moves" required>
-          <mat-option *ngFor="let move of movesOptions" [value]="move">
-            {{move.viewValue}}
+        <mat-select formControlName="moveConfig" name="moveConfig" required>
+          <mat-option *ngFor="let moveConfig of movesConfig" [value]="moveConfig.value">
+            {{moveConfig.viewValue}}
           </mat-option>
         </mat-select>
-        <mat-hint>{{formGroup.get('moves').value.explain}}</mat-hint>
+        <mat-hint>{{formGroup.get('moveConfig').value.explain}}</mat-hint>
       </mat-form-field>
     </div>
-    <div class="mt">
+    <div class="mt mb">
       <button mat-button>Start Game</button>
     </div>
   </form>

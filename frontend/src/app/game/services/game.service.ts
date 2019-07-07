@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { GameOver } from '../models/game-over.model';
 import { GameOverException } from '../exceptions/game-over.exception';
 import { GameDto } from '../dtos/game.dto';
+import { MoveConfig } from '../models/move-config.model';
 
 export interface DoRoundResponse {
   gameOver: GameOver;
@@ -28,8 +29,8 @@ export class GameService {
     }
   }
 
-  async startGame(players: Players, moves: Move[]) {
-    const gameDto = await this.http.post<GameDto>('/api/game', {players, moves}).toPromise();
+  async startGame(players: Players, moveConfig: MoveConfig) {
+    const gameDto = await this.http.post<GameDto>('/api/game', {players, moveConfig}).toPromise();
     this.game = new Game(gameDto);
   }
   async quitGame() {
@@ -50,7 +51,7 @@ export class GameService {
   }
 
   getMoves(): ReadonlyArray<Move> {
-    return this.game.moves;
+    return this.game.moveConfig.moves;
   }
   getPlayers(): Players {
     return this.game.players;

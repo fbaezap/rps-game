@@ -1,6 +1,7 @@
-import { IsNotEmpty, ValidateNested, ArrayUnique, ArrayMinSize, ArrayNotContains } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsNotEmpty, ValidateNested } from 'class-validator';
 import { Players } from '../models/player.model';
+import { MoveConfigDto } from './move-config.dto';
 import { PlayersDto } from './players.dto';
 
 export class StartGameDto {
@@ -10,8 +11,7 @@ export class StartGameDto {
   players: Players;
 
   @IsNotEmpty()
-  @ArrayNotContains(['', null, undefined])
-  @ArrayMinSize(3)
-  @ArrayUnique()
-  moves: string[];
+  @ValidateNested()
+  @Type(() => MoveConfigDto)
+  moveConfig: MoveConfigDto;
 }

@@ -10,7 +10,6 @@ import { isNullOrUndefined } from 'util';
 export class GameService {
   constructor(@InjectRepository(Game) private readonly gameRepository: Repository<Game>) {}
   getRoundWinner(game: SessionGame, round: Round) {
-    const moves = game.moves;
     const players = game.players;
     if (this.isMoveKilling(game, round.playerOneMove, round.playerTwoMove)) {
       return players.playerOne;
@@ -21,8 +20,8 @@ export class GameService {
     return null;
   }
   isMoveKilling(game: SessionGame, move: number, victim: number) {
-    const moves = game.moves;
-    return (move + 1) % moves.length === victim;
+    const {moves, inverted} = game.moveConfig;
+    return (move + (inverted ? (moves.length - 1) : 1)) % moves.length === victim;
   }
   isGameOver(game: SessionGame) {
     return !isNullOrUndefined(game && game.gameOver);

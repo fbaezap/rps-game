@@ -1,7 +1,8 @@
 <mat-toolbar>
   <span>Rock, Paper or Scissors Game</span>
   <span class="spacer"></span>
-  <button mat-icon-button class="show-scores-button" (click)="showScores()" *ngIf="rounds.length">
+  <button mat-icon-button class="show-scores-button" (click)="showScores()" *ngIf="rounds.length"
+    matTooltip="Click to Show Previous Rounds">
     <mat-icon>assignment</mat-icon>
   </button>
   <app-quit-game></app-quit-game>

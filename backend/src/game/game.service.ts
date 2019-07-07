@@ -1,10 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Game } from './models/game.model';
 import { Round } from './models/round.model';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Game } from './entities/game.entity';
+import { Repository } from 'typeorm';
+import { SessionGame } from './models/game.model';
+import { isNullOrUndefined } from 'util';
 
 @Injectable()
 export class GameService {
-  getRoundWinner(game: Game, round: Round) {
+  constructor(@InjectRepository(Game) private readonly gameRepository: Repository<Game>) {}
+  getRoundWinner(game: SessionGame, round: Round) {
     const moves = game.moves;
     const players = game.players;
     if (this.isMoveKilling(game, round.playerOneMove, round.playerTwoMove)) {
@@ -15,8 +20,20 @@ export class GameService {
     }
     return null;
   }
-  isMoveKilling(game: Game, move: number, victim: number) {
+  isMoveKilling(game: SessionGame, move: number, victim: number) {
     const moves = game.moves;
     return (move + 1) % moves.length === victim;
+  }
+  isGameOver(game: SessionGame) {
+    return !isNullOrUndefined(game && game.gameOver);
+  }
+
+  saveGame(sessionGame: SessionGame) {
+    if (!this.isGameOver(sessionGame)) {
+      throw new Error(`You can't save a game that is not over`);
+    }
+    const game = this.gameRepository.create(sessionGame);
+    game.winner = sessionGame.gameOver.winner;
+    this.gameRepository.save(game);
   }
 }

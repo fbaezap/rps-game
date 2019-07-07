@@ -4,10 +4,10 @@ import { GameConfig } from './game-config.model';
 import { RoundResolved } from './round.model';
 import { GameOver } from './game-over.model';
 
-export interface Game {
+export interface SessionGame {
   readonly players: Players;
-  readonly moves: ReadonlyArray<Move>;
+  readonly moves: Move[];
   readonly gameConfig: GameConfig;
-  rounds: RoundResolved[];
+  readonly rounds: RoundResolved[];
   gameOver: GameOver;
 }

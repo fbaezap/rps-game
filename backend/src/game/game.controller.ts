@@ -1,15 +1,13 @@
-import { Controller, Get, Session, Body, Post, UseGuards } from '@nestjs/common';
-import { StartGameDto } from './dtos/start-game.dto';
-import { Game } from './models/game.model';
-import { DoRoundDto } from './dtos/do-round.dto';
-import { Round, RoundResolved } from './models/round.model';
-import { Players } from './models/player.model';
-import { Move } from './models/move.model';
+import { Body, Controller, Get, Post, Session, UseGuards } from '@nestjs/common';
 import { isNullOrUndefined } from 'util';
+import { DoRoundDto } from './dtos/do-round.dto';
+import { StartGameDto } from './dtos/start-game.dto';
+import { GameService } from './game.service';
 import { GameStartedGuard } from './guards/game-started.guard';
 import { NoGameOverGuard } from './guards/no-game-over.guard';
 import { NoGameStartedGuard } from './guards/no-game-started.guard';
-import { GameService } from './game.service';
+import { RoundResolved } from './models/round.model';
+import { SessionGame as Game } from './models/game.model';
 
 @Controller('api/game')
 export class GameController {
@@ -32,13 +30,13 @@ export class GameController {
     const winner = this.gameService.getRoundWinner(game, round);
     const roundResolved: RoundResolved = {round, winner};
     rounds.push(roundResolved);
-    if (isNullOrUndefined(winner)) {
-      return null;
-    }
-    const roundsWon = rounds.filter((r: any) => r.winner === winner).length;
-    if (roundsWon >= gameConfig.maximumRoundsWon) {
-      const gameOver = {winner, rounds, players};
-      game.gameOver = gameOver;
+    if (!isNullOrUndefined(winner)) {
+      const roundsWon = rounds.filter((r: any) => r.winner === winner).length;
+      if (roundsWon >= gameConfig.maximumRoundsWon) {
+        const gameOver = {winner, rounds, players};
+        game.gameOver = gameOver;
+        this.gameService.saveGame(game);
+      }
     }
     return game;
   }

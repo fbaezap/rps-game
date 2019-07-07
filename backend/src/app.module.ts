@@ -5,11 +5,12 @@ import { AppService } from './app.service';
 import { CsurfMiddleware } from './core/csurf/csurf.middleware';
 import { GameModule } from './game/game.module';
 import { RedisService } from './core/redis/redis.service';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import * as session from 'express-session';
 import * as connectRedis from 'connect-redis';
 
 @Module({
-  imports: [GameModule],
+  imports: [TypeOrmModule.forRoot(), GameModule],
   controllers: [AppController],
   providers: [AppService, RedisService],
 })

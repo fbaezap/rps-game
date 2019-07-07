@@ -12,26 +12,30 @@ import { NoGameOverGuard } from './game/guards/no-game-over.guard';
 
 const routes: Routes = [{
   path: 'game',
-  component: GameStartComponent,
-  canActivate: [NoGameStartedGuard],
+  children: [{
+    path: '',
+    pathMatch: 'full',
+    component: GameStartComponent,
+    canActivate: [NoGameStartedGuard],
+  }, {
+    path: 'over',
+    pathMatch: 'full',
+    component: GameOverComponent,
+    canActivate: [GameStartedGuard, GameOverGuard],
+  }],
 }, {
   path: 'round',
   canActivate: [GameStartedGuard, NoGameOverGuard],
   children: [{
     path: '',
+    pathMatch: 'full',
     component: RoundStartComponent,
   }, {
     path: 'over',
+    pathMatch: 'full',
     component: RoundOverComponent,
     canActivate: [HasRoundResolvedGuard],
-  }, {
-    path: '**',
-    redirectTo: '',
   }]
-}, {
-  path: 'game/over',
-  component: GameOverComponent,
-  canActivate: [GameStartedGuard, GameOverGuard],
 }, {
   path: '**',
   redirectTo: '/game',

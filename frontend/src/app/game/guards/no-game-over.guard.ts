@@ -14,7 +14,7 @@ export class NoGameOverGuard implements CanActivate {
     if (!this.gameService.isGameOver()) {
       return true;
     } else {
-      return this.router.createUrlTree(['/game-over']);
+      return this.router.createUrlTree(['/game/over']);
     }
   }
 }

@@ -12,6 +12,8 @@ then, when the process are completed, open a web browser at [localhost:3000](loc
 - Angular - 8.0.3
 - Angular Material - 8.0.2
 - NestJS - 6.0.0
+- Postgres
+- Redis
 
 
 ## Production-Like
@@ -27,6 +29,11 @@ npm ci
 
 # Run start script
 npm run build -- --prod --outputPath=dist
+```
+
+The same but in one line
+```bash
+cd frontend && npm ci && npm run build -- --prod --outputPath=dist
 ```
 
 ### Backend
@@ -46,6 +53,10 @@ npm ci
 npm run start:prod
 ```
 
+The same but in one line
+```bash
+docker-compose up -d && cd backend && npm ci && npm run start:prod
+```
 ## Development
 
 ### Frontend

@@ -28,8 +28,8 @@ export class GameService {
     }
   }
 
-  async startGame(players: Players) {
-    const gameDto = await this.http.post<GameDto>('/api/game', {players}).toPromise();
+  async startGame(players: Players, moves: Move[]) {
+    const gameDto = await this.http.post<GameDto>('/api/game', {players, moves}).toPromise();
     this.game = new Game(gameDto);
   }
   async quitGame() {

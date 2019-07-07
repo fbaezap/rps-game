@@ -5,7 +5,7 @@
 <div class="container">
   <h1 class="mat-h1 mt">Start Game</h1>
   <p class="mat-body">First, write your names.</p>
-  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup" autocomplete="off">
     <div>
       <mat-form-field appearance="fill">
         <mat-label>Player One</mat-label>
@@ -25,6 +25,17 @@
             You have to choose a different name
           </ng-container>
         </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Number of Moves</mat-label>
+        <mat-select formControlName="moves" name="moves" required>
+          <mat-option *ngFor="let move of movesOptions" [value]="move">
+            {{move.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-hint>{{formGroup.get('moves').value.explain}}</mat-hint>
       </mat-form-field>
     </div>
     <div class="mt">

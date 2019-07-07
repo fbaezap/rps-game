@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatFormFieldModule, MatButtonModule, MatToolbarModule } from '@angular/material';
+import { MatInputModule, MatFormFieldModule, MatButtonModule, MatToolbarModule, MatSelectModule } from '@angular/material';
 import { GameStartComponent } from './components/game-start/game-start.component';
 import { GameOverComponent } from './components/game-over/game-over.component';
 import { RoundModule } from '../round/round.module';
@@ -17,6 +17,7 @@ import { RoundModule } from '../round/round.module';
     MatFormFieldModule,
     MatButtonModule,
     MatToolbarModule,
+    MatSelectModule,
   ],
   exports: [GameStartComponent, GameOverComponent],
 })

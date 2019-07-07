@@ -51,7 +51,7 @@ export class GameController {
   startGame(@Session() session: any, @Body() startGameDto: StartGameDto) {
     session.game = {
       players: startGameDto.players,
-      moves: ['Scissors', 'Paper', 'Rock'],
+      moves: startGameDto.moves,
       gameConfig: {
         maximumRoundsWon: 3,
       },

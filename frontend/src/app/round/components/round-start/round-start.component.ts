@@ -50,14 +50,12 @@ export class RoundStartComponent implements OnInit {
     try {
       this.submitting = true;
       const {playerOneMove, playerTwoMove} = this.formGroup.value;
-      this.gameService.doRound({playerOneMove, playerTwoMove});
-      await this.router.navigate(['/round/over']);
-    } catch (error) {
-      if (error instanceof GameOverException) {
-        await this.router.navigate(['/game-over']);
-        return;
+      await this.gameService.doRound({playerOneMove, playerTwoMove});
+      if (this.gameService.isGameOver()) {
+        await this.router.navigate(['/game/over']);
+      } else {
+        await this.router.navigate(['/round/over']);
       }
-      console.error(error);
     } finally {
       this.submitting = false;
     }

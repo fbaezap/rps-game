@@ -1,0 +1,12 @@
+version: "3.7"
+networks:
+  rps_game:
+services:
+  redis:
+    container_name: redis_container
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - rps_game
+    restart: unless-stopped

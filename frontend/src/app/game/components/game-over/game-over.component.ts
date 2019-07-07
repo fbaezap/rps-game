@@ -30,8 +30,8 @@ export class GameOverComponent {
     });
   }
 
-  playAgain() {
-    this.gameService.quitGame();
-    this.router.navigate(['/']);
+  async playAgain() {
+    await this.gameService.quitGame();
+    await this.router.navigate(['/']);
   }
 }

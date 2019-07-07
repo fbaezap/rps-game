@@ -7,7 +7,8 @@ import { GameModule } from './game/game.module';
 import { RoundModule } from './round/round.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CsrfInterceptor } from './core/csrf.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,10 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [{
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
     useValue: {appearance: 'standard'}
+  }, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: CsrfInterceptor,
+    multi: true,
   }],
   bootstrap: [AppComponent]
 })

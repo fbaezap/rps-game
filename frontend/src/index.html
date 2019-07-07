@@ -10,7 +10,10 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-  <meta name="csrfToken" value="{{csrfToken}}">
+  <meta name="csrf-token" content="{{csrfToken}}">
+  <script>
+    var gameDto = JSON.parse('{{{gameDto}}}');
+  </script>
 </head>
 <body>
   <app-root></app-root>

@@ -7,14 +7,15 @@ import { GameService } from '../services/game.service';
   providedIn: 'root'
 })
 export class GameStartedGuard implements CanActivate {
-  constructor(private gameService: GameService, private router: Router){}
+  constructor(private gameService: GameService, private router: Router) { }
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.gameService.isGameStarted()) {
+    state: RouterStateSnapshot): boolean | UrlTree {
+    const isGameStarted = this.gameService.isGameStarted();
+    if (isGameStarted) {
       return true;
     } else {
-      return this.router.createUrlTree(['/'], {replaceUrl: true});
+      return this.router.createUrlTree(['/'], { replaceUrl: true });
     }
   }
 }

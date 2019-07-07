@@ -11,7 +11,7 @@ import { GameOverGuard } from './game/guards/game-over.guard';
 import { NoGameOverGuard } from './game/guards/no-game-over.guard';
 
 const routes: Routes = [{
-  path: '',
+  path: 'game',
   component: GameStartComponent,
   canActivate: [NoGameStartedGuard],
 }, {
@@ -29,12 +29,12 @@ const routes: Routes = [{
     redirectTo: '',
   }]
 }, {
-  path: 'game-over',
+  path: 'game/over',
   component: GameOverComponent,
   canActivate: [GameStartedGuard, GameOverGuard],
 }, {
   path: '**',
-  redirectTo: '',
+  redirectTo: '/game',
 }];
 
 @NgModule({

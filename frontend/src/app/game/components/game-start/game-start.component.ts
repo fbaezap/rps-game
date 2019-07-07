@@ -41,12 +41,17 @@ export class GameStartComponent implements OnInit {
     if (this.formGroup.invalid || this.submitting) {
       return;
     }
-    this.submitting = true;
-    const {playerOne, playerTwo} = this.formGroup.value;
-    this.gameService.startGame(
-      {playerOne, playerTwo} as Players
-    );
-    await this.router.navigate(['/round'], {replaceUrl: true});
-    this.submitting = false;
+    try {
+      this.submitting = true;
+      const {playerOne, playerTwo} = this.formGroup.value;
+      await this.gameService.startGame(
+        {playerOne, playerTwo} as Players
+      );
+      await this.router.navigate(['/round'], {replaceUrl: true});
+    } catch (error) {
+      console.error(error);
+    } finally {
+      this.submitting = false;
+    }
   }
 }

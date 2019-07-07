@@ -11,8 +11,8 @@ export class QuitGameComponent {
 
   constructor(private gameService: GameService, private router: Router) { }
 
-  onClick() {
-    this.gameService.quitGame();
+  async onClick() {
+    await this.gameService.quitGame();
     this.router.navigate(['/']);
   }
 }

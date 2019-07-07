@@ -1,12 +1,11 @@
-import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import { ArgumentsHost, Catch, NotFoundException } from '@nestjs/common';
 import { BaseExceptionFilter } from '@nestjs/core';
-import { handlebars } from 'hbs';
-import * as request from 'request';
-import { resolve } from 'path';
 import { Request, Response } from 'express';
+import { handlebars } from 'hbs';
 import * as httpProxy from 'http-proxy';
+import * as request from 'request';
 
-@Catch()
+@Catch(NotFoundException)
 export class NotFoundFilter extends BaseExceptionFilter {
   proxy = httpProxy.createProxyServer({ target: 'http://localhost:4200' });
   catch(exception: any, host: ArgumentsHost) {
@@ -29,7 +28,10 @@ export class NotFoundFilter extends BaseExceptionFilter {
             super.catch(error, host);
             return;
           } else {
-            const rendered = handlebars.compile(body)({ csrfToken: req.csrfToken() });
+            const rendered = handlebars.compile(body)({
+              csrfToken: req.csrfToken(),
+              gameDto: JSON.stringify(req.session.game || null),
+            });
             response.status(200).send(rendered);
           }
         });

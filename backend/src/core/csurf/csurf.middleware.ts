@@ -11,7 +11,11 @@ export class CsurfMiddleware implements NestMiddleware {
 
     private static options: CsurfOptions;
 
-    public use(req: any, res: any, next: any) {
+    public use(req: Request, res: any, next: any) {
+        if (req.baseUrl.startsWith('/sockjs-node/')) {
+            next();
+            return;
+        }
         if (CsurfMiddleware.options) {
             csurf(CsurfMiddleware.options)(req, res, next);
         } else {

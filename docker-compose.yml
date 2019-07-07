@@ -2,8 +2,8 @@ version: "3.7"
 networks:
   rps_game:
 volumes:
-  postgres:
-  pgadmin:
+  rps_postgres:
+  rps_pgadmin:
 services:
   redis:
     container_name: redis_container
@@ -17,11 +17,12 @@ services:
     container_name: postgres_container
     image: postgres
     environment:
+      POSTGRES_DB: rps_game_db
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
+       - rps_postgres:/data/postgres
     ports:
       - "5432:5432"
     networks:
@@ -35,7 +36,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     volumes:
-       - pgadmin:/root/.pgadmin
+       - rps_pgadmin:/root/.pgadmin
     ports:
       - "${PGADMIN_PORT:-5050}:80"
     networks:

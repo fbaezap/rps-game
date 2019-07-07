@@ -1,6 +1,9 @@
 # Rock, Paper or Scissors Game.
 A Rock, Paper or Scissors developed with Angular and NestJS.
 
+To start playing follow the instructions of [Production-Like](#production-like) or [Development](#development) and
+then, when the process are completed, open a web browser at [localhost:3000](localhost:3000) and start playing. You must choose the your names and then select your moves.
+
 ## Prerequisites
 - NodeJS >= 10.15.3
 - Docker Compose >= 1.23.2
@@ -11,7 +14,7 @@ A Rock, Paper or Scissors developed with Angular and NestJS.
 - NestJS - 6.0.0
 
 
-## Production Like
+## Production-Like
 
 ### Frontend
 To install and start the frontend run the following instructions in a new terminal at repository folder.
@@ -74,3 +77,9 @@ npm install
 # Run start development script
 npm run start:dev
 ```
+
+## Check Database
+
+The result of each game is stored on a database. The `docker-compose.yml` file create a postgres database and a pgAdmin page you can visit to view the database values. You have to go to [localhost:5050](localhost:5050) and enter email `pgadmin4@pgadmin.org` and password `admin`. Then create a connection to `postgres_container` (postgres container's name and host name on docker) with the username `postgres` and password `changeme`.
+
+There must be a database named `rps_game_db`. On the table `game` you can check the winner of all games.

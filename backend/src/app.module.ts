@@ -10,7 +10,16 @@ import * as session from 'express-session';
 import * as connectRedis from 'connect-redis';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(), GameModule],
+  imports: [TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: 'postgres',
+    password: 'changeme',
+    database: 'rps_game_db',
+    entities: [__dirname  + '/**/*.entity{.ts,.js}'],
+    synchronize: true,
+  }), GameModule],
   controllers: [AppController],
   providers: [AppService, RedisService],
 })
